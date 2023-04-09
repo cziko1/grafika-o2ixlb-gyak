@@ -1,0 +1,25 @@
+wavefront OBJ 
+
+- vertex
+- face                             /\    (x1, y1, z1)   
+- v xyz                           /  \     (v1, u1)      
+- vn xyz                         /    \         n1^->
+- vt uv                         /______\    (x2, y2, z2)
+                    (x3, y3, z3)              (v2, u2)
+f // // //            (v3, u3)                  n2^->          
+                        n3^->
+
+
+-JEGYZET:
+    -origin example:
+        -poligon hálós megjegyzés 
+        -3szögből áll, minden csúcsponthoz lehet színt rendelni.
+        -követekző gyakorlat texturázás,
+        -textura koordináták.
+        -felületből kifelé forduló vektorok a normál vektorok. (Pl.: lekerekítés)
+        -bináris és szöveges fájlokban való tárolás (mert meg lehet nyitni, könnyebb szerkeszteni)
+        -bináris gyorsabban tölt be az adat. (hátrány: nehezebben tudjuk szerkeszteni).
+        -xyz szöveges érték
+        -utils obj statikus könyvtár lefutatása 
+        -weboldalon van link ahol további 3d-s modellek.
+
