@@ -1,0 +1,24 @@
+UV-mapping
+
+     v1 ____________
+        I           I 
+        I           I
+        I           I   
+       _I___________I
+        I            1
+       0              u
+
+
+    - sec texture ID 
+    - 2d kép tárolási módja -->vektor grafikus: svg, photoshop, coral dravv
+                            -->raszteres:vesztegséges: JPG, veszteség mentes
+                                                                /\
+                                                               /  \
+                                                              /    \
+                                                             V      V
+                                                    tömörített, tömörítettetlen    
+                                                    PNG, VVEBP       BMP 
+                                                        GIF
+
+
+7-nél jarunk 
