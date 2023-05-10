@@ -5,9 +5,9 @@
  */
 int main(int argc, char* argv[])
 {
-    Game game; // I think the window have been initialized
+    Game game;
 
-    init_game(&game, 800, 300); // I can set here the size of the window
+    init_game(&game, 400, 300);
     while (game.is_running) {
         handle_game_events(&game);
         update_game(&game);
