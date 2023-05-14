@@ -32,14 +32,6 @@ typedef struct Material
     float shininess;
 } Material;
 
-typedef struct Lighting
-{
-    float ambient_light[4];
-    float diffuse_light[4];
-    float specular_light[4];
-    float position[4];
-} Lighting;
-
 /**
  * Calculates radian from degree.
  */

@@ -10,39 +10,36 @@ typedef struct Scene
 {
     Model cube;
     Material material;
-    //GLuint texture_cube;
-    GLuint texture_duck;
-    Lighting lighting;
+    GLuint texture_id;
+    float camera_x;
+    float camera_y;
+    float camera_z;
 } Scene;
 
 /**
  * Initialize the scene by loading models.
  */
-void init_scene(Scene *scene);
+void init_scene(Scene* scene);
 
 /**
  * Set the lighting of the scene.
  */
-void set_lighting();
+void set_lighting(const Scene* scene);
 
 /**
  * Set the current material.
  */
-void set_material(const Material *material);
+void set_material(const Material* material);
 
 /**
  * Update the scene.
  */
-void update_scene(Scene *scene, double time);
+void update_scene(Scene* scene);
 
 /**
  * Render the scene objects.
  */
-void render_scene(const Scene *scene);
-
-void set_lightning_x_position(Lighting *lighting, double speed);
-void set_lightning_y_position(Lighting *lighting, double speed);
-void set_lightning_z_position(Lighting *lighting, double speed);
+void render_scene(const Scene* scene);
 
 /**
  * Draw the origin of the world coordinate system.
