@@ -1,5 +1,7 @@
 #include "app.h"
 
+#include <stdio.h>
+
 #include <SDL2/SDL_image.h>
 
 void init_app(App* app, int width, int height)
@@ -11,29 +13,29 @@ void init_app(App* app, int width, int height)
 
     error_code = SDL_Init(SDL_INIT_EVERYTHING);
     if (error_code != 0) {
-        printf("[ERROR] SDL initialization error: %s\n", SDL_GetError());
+        printf("[ERROR SZAR AZ CODE] SDL initialization error: %s\n", SDL_GetError());
         return;
     }
 
     app->window = SDL_CreateWindow(
-        "Cube!",
+        "Origin!",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
         width, height,
         SDL_WINDOW_OPENGL);
     if (app->window == NULL) {
-        printf("[ERROR] Unable to create the application window!\n");
+        printf("[ERROR SZAR A WINDOW] Unable to create the application window!\n");
         return;
     }
 
     inited_loaders = IMG_Init(IMG_INIT_PNG);
     if (inited_loaders == 0) {
-        printf("[ERROR] IMG initialization error: %s\n", IMG_GetError());
+        printf("[ERROR SZAR A KEP] IMG initialization error: %s\n", IMG_GetError());
         return;
     }
 
     app->gl_context = SDL_GL_CreateContext(app->window);
     if (app->gl_context == NULL) {
-        printf("[ERROR] Unable to create the OpenGL context!\n");
+        printf("[ERROR SZAR AZ OPENGLE] Unable to create the OpenGL context!\n");
         return;
     }
 
@@ -61,11 +63,6 @@ void init_opengl()
     glEnable(GL_DEPTH_TEST);
 
     glClearDepth(1.0);
-
-    glEnable(GL_TEXTURE_2D);
-
-    glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
 }
 
 void reshape(GLsizei width, GLsizei height)
@@ -125,6 +122,12 @@ void handle_app_events(App* app)
             case SDL_SCANCODE_D:
                 set_camera_side_speed(&(app->camera), -1);
                 break;
+            case SDL_SCANCODE_Q:
+                set_camera_vertical_speed(&(app->camera), 1);
+                break;
+            case SDL_SCANCODE_E:
+                set_camera_vertical_speed(&(app->camera), -1);
+                break;
             default:
                 break;
             }
@@ -138,6 +141,10 @@ void handle_app_events(App* app)
             case SDL_SCANCODE_A:
             case SDL_SCANCODE_D:
                 set_camera_side_speed(&(app->camera), 0);
+                break;
+            case SDL_SCANCODE_Q:
+            case SDL_SCANCODE_E:
+                set_camera_vertical_speed(&(app->camera), 0);
                 break;
             default:
                 break;
@@ -188,10 +195,6 @@ void render_app(App* app)
     set_view(&(app->camera));
     render_scene(&(app->scene));
     glPopMatrix();
-
-    if (app->camera.is_preview_visible) {
-        show_texture_preview();
-    }
 
     SDL_GL_SwapWindow(app->window);
 }

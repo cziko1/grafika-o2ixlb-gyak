@@ -3,40 +3,36 @@
 #include <obj/load.h>
 #include <obj/draw.h>
 
-#include <math.h>
-
+// Initialize SCENE 
 void init_scene(Scene* scene)
 {
-    load_model(&(scene->cube), "assets/models/cube.obj");
-    scene->texture_id = load_texture("assets/textures/cube.png");
+    load_model(&(scene->train), "assets/models/train.obj");
+    scene->texture_id = load_texture("assets/textures/train.png");
 
     glBindTexture(GL_TEXTURE_2D, scene->texture_id);
 
-    scene->material.ambient.red = 1.0;
+    scene->material.ambient.red = 0.0;
     scene->material.ambient.green = 0.0;
     scene->material.ambient.blue = 0.0;
 
     scene->material.diffuse.red = 1.0;
-    scene->material.diffuse.green = 0.0;
+    scene->material.diffuse.green = 1.0;
     scene->material.diffuse.blue = 0.0;
 
-    scene->material.specular.red = 1.0;
+    scene->material.specular.red = 0.0;
     scene->material.specular.green = 0.0;
     scene->material.specular.blue = 0.0;
 
-    scene->material.shininess = 0.5;
-
-    scene->camera_x = 0.0f;
-    scene->camera_y = 0.0f;
-    scene->camera_z = 10.0f;
+    scene->material.shininess = 0.0;
 }
 
-void set_lighting(const Scene* scene)
+// LIGHT
+void set_lighting()
 {
-    float ambient_light[] = { 0.0f, 1.0f, 0.0f, 1.0f };
-    float diffuse_light[] = { 1.0f, 0.0f, 0.0, 1.0f };
-    float specular_light[] = { 0.0f, 0.0f, 1.0f, 1.0f };
-    float position[] = { scene->camera_x, scene->camera_y, scene->camera_z, 1.0f };
+    float ambient_light[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+    float diffuse_light[] = { 1.0f, 1.0f, 1.0, 1.0f };
+    float specular_light[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+    float position[] = { 0.0f, 0.0f, 10.0f, 1.0f };
 
     glLightfv(GL_LIGHT0, GL_AMBIENT, ambient_light);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse_light);
@@ -44,6 +40,7 @@ void set_lighting(const Scene* scene)
     glLightfv(GL_LIGHT0, GL_POSITION, position);
 }
 
+// MATERIAL
 void set_material(const Material* material)
 {
     float ambient_material_color[] = {
@@ -78,9 +75,9 @@ void update_scene(Scene* scene)
 void render_scene(const Scene* scene)
 {
     set_material(&(scene->material));
-    set_lighting(scene);
+    set_lighting();
     draw_origin();
-    draw_model(&(scene->cube));
+    draw_model(&(scene->train));
 }
 
 void draw_origin()

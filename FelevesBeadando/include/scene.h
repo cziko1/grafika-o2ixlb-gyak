@@ -6,31 +6,28 @@
 
 #include <obj/model.h>
 
+
 typedef struct Scene
 {
-    Model cube;
+    Model train;
     Material material;
     GLuint texture_id;
-    float camera_x;
-    float camera_y;
-    float camera_z;
+
 } Scene;
 
 /**
  * Initialize the scene by loading models.
  */
 void init_scene(Scene* scene);
-
 /**
  * Set the lighting of the scene.
  */
-void set_lighting(const Scene* scene);
+void set_lighting();
 
 /**
  * Set the current material.
  */
 void set_material(const Material* material);
-
 /**
  * Update the scene.
  */
