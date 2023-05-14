@@ -101,9 +101,6 @@ void handle_app_events(App* app)
     int x;
     int y;
 
-    double rotation_speed = 1;
-    double camera_speed_z = 0.1;
-
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
         case SDL_KEYDOWN:
@@ -124,16 +121,10 @@ void handle_app_events(App* app)
                 set_camera_side_speed(&(app->camera), -1);
                 break;
             case SDL_SCANCODE_Q:
-                app->camera.position.z += camera_speed_z;
+                set_camera_vertical_speed(&(app->camera), 1);
                 break;
             case SDL_SCANCODE_E:
-                app->camera.position.z -= camera_speed_z;
-                break;
-            case SDL_SCANCODE_J:
-                rotate_camera(&(app->camera), -rotation_speed, 0);
-                break;
-            case SDL_SCANCODE_K:
-                rotate_camera(&(app->camera), rotation_speed, 0);
+                set_camera_vertical_speed(&(app->camera), -1);
                 break;
             default:
                 break;
@@ -148,6 +139,10 @@ void handle_app_events(App* app)
             case SDL_SCANCODE_A:
             case SDL_SCANCODE_D:
                 set_camera_side_speed(&(app->camera), 0);
+                break;
+            case SDL_SCANCODE_Q:
+            case SDL_SCANCODE_E:
+                set_camera_vertical_speed(&(app->camera), 0);
                 break;
             default:
                 break;
