@@ -13,7 +13,7 @@ void init_app(App* app, int width, int height)
 
     error_code = SDL_Init(SDL_INIT_EVERYTHING);
     if (error_code != 0) {
-        printf("[ERROR SZAR AZ CODE] SDL initialization error: %s\n", SDL_GetError());
+        printf("[ERROR] SDL initialization error: %s\n", SDL_GetError());
         return;
     }
 
@@ -23,19 +23,19 @@ void init_app(App* app, int width, int height)
         width, height,
         SDL_WINDOW_OPENGL);
     if (app->window == NULL) {
-        printf("[ERROR SZAR A WINDOW] Unable to create the application window!\n");
+        printf("[ERROR] Unable to create the application window!\n");
         return;
     }
 
     inited_loaders = IMG_Init(IMG_INIT_PNG);
     if (inited_loaders == 0) {
-        printf("[ERROR SZAR A KEP] IMG initialization error: %s\n", IMG_GetError());
+        printf("[ERROR] IMG initialization error: %s\n", IMG_GetError());
         return;
     }
 
     app->gl_context = SDL_GL_CreateContext(app->window);
     if (app->gl_context == NULL) {
-        printf("[ERROR SZAR AZ OPENGLE] Unable to create the OpenGL context!\n");
+        printf("[ERROR] Unable to create the OpenGL context!\n");
         return;
     }
 
