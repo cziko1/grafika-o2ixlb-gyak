@@ -1,7 +1,5 @@
 #include "app.h"
 
-#include <stdio.h>
-
 #include <SDL2/SDL_image.h>
 
 void init_app(App* app, int width, int height)
@@ -18,7 +16,7 @@ void init_app(App* app, int width, int height)
     }
 
     app->window = SDL_CreateWindow(
-        "Origin!",
+        "TRAIN STATION!",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
         width, height,
         SDL_WINDOW_OPENGL);
@@ -63,6 +61,11 @@ void init_opengl()
     glEnable(GL_DEPTH_TEST);
 
     glClearDepth(1.0);
+
+    glEnable(GL_TEXTURE_2D);
+
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
 }
 
 void reshape(GLsizei width, GLsizei height)
@@ -90,7 +93,7 @@ void reshape(GLsizei width, GLsizei height)
     glFrustum(
         -.08, .08,
         -.06, .06,
-        .1, 10
+        .1, 1000
     );
 }
 
@@ -122,12 +125,17 @@ void handle_app_events(App* app)
             case SDL_SCANCODE_D:
                 set_camera_side_speed(&(app->camera), -1);
                 break;
-            case SDL_SCANCODE_Q:
-                set_camera_vertical_speed(&(app->camera), 1);
+			case SDL_SCANCODE_KP_MINUS:
+                setBrightness(&(app->scene), -0.5f);
                 break;
-            case SDL_SCANCODE_E:
-                set_camera_vertical_speed(&(app->camera), -1);
-                break;
+            case SDL_SCANCODE_KP_PLUS:
+                setBrightness(&(app->scene), 0.5f);
+				break;
+			case SDL_SCANCODE_F1:
+                if (app->scene.shelp == 0)
+                    app->scene.shelp = 1;
+                else
+                    app->scene.shelp = 0;
             default:
                 break;
             }
@@ -142,9 +150,9 @@ void handle_app_events(App* app)
             case SDL_SCANCODE_D:
                 set_camera_side_speed(&(app->camera), 0);
                 break;
-            case SDL_SCANCODE_Q:
-            case SDL_SCANCODE_E:
-                set_camera_vertical_speed(&(app->camera), 0);
+			case SDL_SCANCODE_KP_MINUS:
+            case SDL_SCANCODE_KP_PLUS:
+                setBrightness(&(app->scene), 0.0f);
                 break;
             default:
                 break;
@@ -183,7 +191,7 @@ void update_app(App* app)
     app->uptime = current_time;
 
     update_camera(&(app->camera), elapsed_time);
-    update_scene(&(app->scene));
+    update_scene(&(app->scene), elapsed_time);
 }
 
 void render_app(App* app)
@@ -195,6 +203,13 @@ void render_app(App* app)
     set_view(&(app->camera));
     render_scene(&(app->scene));
     glPopMatrix();
+	
+	if (app->scene.shelp == 1)
+        help(&(app->scene));
+
+    if (app->camera.is_preview_visible) {
+        show_texture_preview();
+    }
 
     SDL_GL_SwapWindow(app->window);
 }

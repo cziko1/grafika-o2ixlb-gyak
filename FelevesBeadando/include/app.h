@@ -5,13 +5,13 @@
 #include "scene.h"
 
 #include <SDL2/SDL.h>
-
+#include <SDL2/SDL_image.h>
 #include <GL/gl.h>
 
 #include <stdbool.h>
 
-#define VIEWPORT_RATIO (4.0 / 3.0)
-#define VIEWPORT_ASPECT 50.0
+#define VIEWPORT_RATIO (16.0 / 9.0)
+#define VIEWPORT_ASPECT 100.0
 
 typedef struct App
 {

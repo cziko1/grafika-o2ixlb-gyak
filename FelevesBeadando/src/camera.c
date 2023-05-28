@@ -15,28 +15,22 @@ void init_camera(Camera* camera)
     camera->speed.x = 0.0;
     camera->speed.y = 0.0;
     camera->speed.z = 0.0;
+
+    camera->is_preview_visible = false;
 }
 
 void update_camera(Camera* camera, double time)
 {
-    double angle_x, angle_z;
-    double side_angle_x, side_angle_z;
+    double angle;
+    double side_angle;
 
-    angle_x = degree_to_radian(camera->rotation.x);
-    angle_z = degree_to_radian(camera->rotation.z);
+    angle = degree_to_radian(camera->rotation.z);
+    side_angle = degree_to_radian(camera->rotation.z + 90.0);
 
-    side_angle_x = degree_to_radian(camera->rotation.x + 90.0);
-    side_angle_z = degree_to_radian(camera->rotation.z + 90.0);
-
-    camera->position.x += cos(side_angle_z) * cos(angle_x) * camera->speed.x * time;
-    camera->position.y += sin(angle_z) * cos(side_angle_x) * camera->speed.y * time;
-    camera->position.z += sin(angle_z) * camera->speed.z * time;
-
-    // camera->position.x += cos(angle) * camera->speed.y * time;
-    // camera->position.y += sin(angle) * camera->speed.y * time;
-    // camera->position.x += cos(side_angle) * camera->speed.x * time;
-    // camera->position.y += sin(side_angle) * camera->speed.x * time;
-
+    camera->position.x += cos(angle) * camera->speed.y * time;
+    camera->position.y += sin(angle) * camera->speed.y * time;
+    camera->position.x += cos(side_angle) * camera->speed.x * time;
+    camera->position.y += sin(side_angle) * camera->speed.x * time;
 }
 
 void set_view(const Camera* camera)
@@ -79,11 +73,6 @@ void set_camera_speed(Camera* camera, double speed)
 void set_camera_side_speed(Camera* camera, double speed)
 {
     camera->speed.x = speed;
-}
-
-void set_camera_vertical_speed(Camera* camera, double speed)
-{
-    camera->speed.z = speed;
 }
 
 void show_texture_preview()

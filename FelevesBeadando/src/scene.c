@@ -1,38 +1,46 @@
 #include "scene.h"
+#include "app.h"
 
 #include <obj/load.h>
 #include <obj/draw.h>
 
-// Initialize SCENE 
+#include <math.h>
+
+
 void init_scene(Scene* scene)
-{
-    load_model(&(scene->train), "assets/models/train.obj");
-    scene->texture_id = load_texture("assets/textures/train.png");
-
-    glBindTexture(GL_TEXTURE_2D, scene->texture_id);
-
-    scene->material.ambient.red = 0.0;
-    scene->material.ambient.green = 0.0;
-    scene->material.ambient.blue = 0.0;
+{	
+    scene->material.ambient.red = 1.0;
+    scene->material.ambient.green = 1.0;
+    scene->material.ambient.blue = 1.0;
 
     scene->material.diffuse.red = 1.0;
     scene->material.diffuse.green = 1.0;
-    scene->material.diffuse.blue = 0.0;
+    scene->material.diffuse.blue = 1.0;
 
-    scene->material.specular.red = 0.0;
-    scene->material.specular.green = 0.0;
-    scene->material.specular.blue = 0.0;
+    scene->material.specular.red = 1.0;
+    scene->material.specular.green = 1.0;
+    scene->material.specular.blue = 1.0;
 
     scene->material.shininess = 0.0;
+	
+	scene->brightness = 0.0f;
+	scene->shelp = 0;
+	
+	scene->controlLight[0] = 1.0f;
+    scene->controlLight[1] = 1.0f;
+    scene->controlLight[2] = 1.0f;
+	
 }
 
-// LIGHT
-void set_lighting()
+void set_lighting(Scene* scene)
 {
-    float ambient_light[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-    float diffuse_light[] = { 1.0f, 1.0f, 1.0, 1.0f };
-    float specular_light[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-    float position[] = { 0.0f, 0.0f, 10.0f, 1.0f };
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+
+    float ambient_light[] = { scene->controlLight[0], scene->controlLight[1], scene->controlLight[0], 1.0 }; // Fehér ambiens szín
+    float diffuse_light[] = { scene->controlLight[0], scene->controlLight[1], scene->controlLight[0], 1.0f }; // Fehér diffúz szín
+    float specular_light[] = { scene->controlLight[0], scene->controlLight[1], scene->controlLight[0], 1.0f }; // Fehér spekuláris szín
+    float position[] = { 0.0f, 1.0f, 0.0f, 0.0f }; // Fényforrás pozíciója
 
     glLightfv(GL_LIGHT0, GL_AMBIENT, ambient_light);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse_light);
@@ -40,7 +48,6 @@ void set_lighting()
     glLightfv(GL_LIGHT0, GL_POSITION, position);
 }
 
-// MATERIAL
 void set_material(const Material* material)
 {
     float ambient_material_color[] = {
@@ -68,33 +75,38 @@ void set_material(const Material* material)
     glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, &(material->shininess));
 }
 
-void update_scene(Scene* scene)
+void update_scene(Scene* scene, double time)
 {
+	scene->controlLight[0] += scene->brightness * time;
+    scene->controlLight[1] += scene->brightness * time;
+    scene->controlLight[2] += scene->brightness * time;
+    scene->controlLight[3] += scene->brightness * time;
 }
 
 void render_scene(const Scene* scene)
 {
     set_material(&(scene->material));
-    set_lighting();
-    draw_origin();
-    draw_model(&(scene->train));
+    set_lighting(scene);
+	
+    glEnd();
 }
 
-void draw_origin()
+void setBrightness(Scene *scene, double brightness) {
+    scene->brightness = brightness;
+}
+
+void help(Scene *scene)
 {
-    glBegin(GL_LINES);
+    glColor3f(1, 1, 1);
 
-    glColor3f(1, 0, 0);
-    glVertex3f(0, 0, 0);
-    glVertex3f(1, 0, 0);
-
-    glColor3f(0, 1, 0);
-    glVertex3f(0, 0, 0);
-    glVertex3f(0, 1, 0);
-
-    glColor3f(0, 0, 1);
-    glVertex3f(0, 0, 0);
-    glVertex3f(0, 0, 1);
-
+    glBegin(GL_QUADS);
+    glTexCoord2f(0, 0);
+    glVertex3d(-2, 1.5, -3);
+    glTexCoord2f(1, 0);
+    glVertex3d(2, 1.5, -3);
+    glTexCoord2f(1, 1);
+    glVertex3d(2, -1.5, -3);
+    glTexCoord2f(0, 1);
+    glVertex3d(-2, -1.5, -3);
     glEnd();
 }
