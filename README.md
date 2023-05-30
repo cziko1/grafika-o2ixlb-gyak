@@ -12,6 +12,4 @@ A beandóban egy vonat állomást mutatok be, annak a belső terét.
 > 
 >Információ: F4
 >
->src="https://github.com/cziko1/grafika-o2ixlb-gyak/blob/main/FelevesBeadando/assets/textures/pic.PNG">
-
-
+><img src="https://github.com/cziko1/grafika-o2ixlb-gyak/blob/main/FelevesBeadando/assets/textures/pic.PNG">
