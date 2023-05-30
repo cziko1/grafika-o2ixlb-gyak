@@ -1,7 +1,5 @@
 #include "app.h"
 
-#include <SDL2/SDL_image.h>
-
 void init_app(App* app, int width, int height)
 {
     int error_code;
@@ -16,7 +14,7 @@ void init_app(App* app, int width, int height)
     }
 
     app->window = SDL_CreateWindow(
-        "TRAIN STATION!",
+        "Cube!",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
         width, height,
         SDL_WINDOW_OPENGL);
@@ -131,11 +129,6 @@ void handle_app_events(App* app)
             case SDL_SCANCODE_KP_PLUS:
                 setBrightness(&(app->scene), 0.5f);
 				break;
-			case SDL_SCANCODE_F1:
-                if (app->scene.shelp == 0)
-                    app->scene.shelp = 1;
-                else
-                    app->scene.shelp = 0;
             default:
                 break;
             }
@@ -203,13 +196,6 @@ void render_app(App* app)
     set_view(&(app->camera));
     render_scene(&(app->scene));
     glPopMatrix();
-	
-	if (app->scene.shelp == 1)
-        help(&(app->scene));
-
-    if (app->camera.is_preview_visible) {
-        show_texture_preview();
-    }
 
     SDL_GL_SwapWindow(app->window);
 }

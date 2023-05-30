@@ -1,9 +1,7 @@
 {
     "files.associations": {
-        "app.h": "c",
-        "sdl_image.h": "c",
         "sdl.h": "c",
-        "load.h": "c",
-        "draw.h": "c"
+        "camera.h": "c",
+        "scene.h": "c"
     }
 }

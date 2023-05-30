@@ -1,14 +1,11 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "utils.h"
-
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 #include <GL/gl.h>
-
-
+#include <math.h>
 #include <stdbool.h>
+
+#include "utils.h"
 
 /**
  * Camera, as a moving point with direction

@@ -1,17 +1,13 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <GL/gl.h>
-#include <obj/load.h>
-#include <obj/draw.h>
-
-#include "camera.h"
 
 #include <math.h>
-
 #include <obj/model.h>
+
+#include "camera.h"
+#include "texture.h"
+#include "floor.h"
 
 
 typedef struct Scene
@@ -19,9 +15,10 @@ typedef struct Scene
     Material material;
     GLuint texture_id;
 	
+	Floor floor;
+	
 	float controlLight[3];
 	float brightness;
-	int shelp;
 } Scene;
 
 /**
