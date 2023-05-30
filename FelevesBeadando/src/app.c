@@ -1,5 +1,7 @@
 #include "app.h"
 
+#include <SDL2/SDL_image.h>
+
 void init_app(App* app, int width, int height)
 {
     int error_code;
@@ -14,7 +16,7 @@ void init_app(App* app, int width, int height)
     }
 
     app->window = SDL_CreateWindow(
-        "Cube!",
+        "STATION!!!",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
         width, height,
         SDL_WINDOW_OPENGL);
@@ -111,16 +113,16 @@ void handle_app_events(App* app)
             case SDL_SCANCODE_ESCAPE:
                 app->is_running = false;
                 break;
-            case SDL_SCANCODE_W:
+            case SDL_SCANCODE_G:
                 set_camera_speed(&(app->camera), 1);
                 break;
-            case SDL_SCANCODE_S:
+            case SDL_SCANCODE_B:
                 set_camera_speed(&(app->camera), -1);
                 break;
-            case SDL_SCANCODE_A:
+            case SDL_SCANCODE_V:
                 set_camera_side_speed(&(app->camera), 1);
                 break;
-            case SDL_SCANCODE_D:
+            case SDL_SCANCODE_N:
                 set_camera_side_speed(&(app->camera), -1);
                 break;
 			case SDL_SCANCODE_KP_MINUS:
@@ -129,18 +131,23 @@ void handle_app_events(App* app)
             case SDL_SCANCODE_KP_PLUS:
                 setBrightness(&(app->scene), 0.5f);
 				break;
+			case SDL_SCANCODE_F4:
+                if (app->scene.shelp == 0)
+                    app->scene.shelp = 1;
+                else
+                    app->scene.shelp = 0;
             default:
                 break;
             }
             break;
         case SDL_KEYUP:
             switch (event.key.keysym.scancode) {
-            case SDL_SCANCODE_W:
-            case SDL_SCANCODE_S:
+            case SDL_SCANCODE_G:
+            case SDL_SCANCODE_B:
                 set_camera_speed(&(app->camera), 0);
                 break;
-            case SDL_SCANCODE_A:
-            case SDL_SCANCODE_D:
+            case SDL_SCANCODE_V:
+            case SDL_SCANCODE_N:
                 set_camera_side_speed(&(app->camera), 0);
                 break;
 			case SDL_SCANCODE_KP_MINUS:
@@ -196,6 +203,13 @@ void render_app(App* app)
     set_view(&(app->camera));
     render_scene(&(app->scene));
     glPopMatrix();
+	
+	if (app->scene.shelp == 1)
+        help(&(app->scene));
+
+    if (app->camera.is_preview_visible) {
+        show_texture_preview();
+    }
 
     SDL_GL_SwapWindow(app->window);
 }

@@ -2,8 +2,6 @@
 #define TEXTURE_H
 
 #include <GL/gl.h>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 
 typedef GLubyte Pixel[3];
 

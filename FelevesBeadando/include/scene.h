@@ -1,24 +1,36 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-
 #include <math.h>
 #include <obj/model.h>
+#include <obj/load.h>
+#include <obj/draw.h>
+#include <SDL2/SDL.h>
+#include <math.h>
 
 #include "camera.h"
 #include "texture.h"
 #include "floor.h"
-
+#include "skybox.h"
+#include "tunnel.h"
+#include "tunnel_end.h"
+#include "traintrack.h"
+#include "train.h"
 
 typedef struct Scene
 {
     Material material;
     GLuint texture_id;
-	
 	Floor floor;
-	
+	GLuint skyBox;
+	Tunnel tunnel;
+	Tunnel_end tunnel_end;	
+	Traintrack traintrack;
+	Train train;
+
 	float controlLight[3];
 	float brightness;
+	int shelp;
 } Scene;
 
 /**

@@ -1,11 +1,11 @@
 #include "camera.h"
-#include "speed.h"
+
 
 void init_camera(Camera* camera)
 {
     camera->position.x = 0.0;
     camera->position.y = 0.0;
-    camera->position.z = 5.0;
+    camera->position.z = 1.0;
     camera->rotation.x = 0.0;
     camera->rotation.y = 0.0;
     camera->rotation.z = 0.0;
@@ -62,9 +62,8 @@ void rotate_camera(Camera* camera, double horizontal, double vertical)
     }
 }
 
-
 void set_camera_speed(Camera* camera, double speed)
-{   
+{
     camera->speed.y = speed*setSpeed();
 }
 

@@ -17,4 +17,4 @@ typedef struct Floor
 void init_floor(Floor* floor);
 void render_floor(Floor* floor);
 
-#endif
+#endif /* FLOOR_H */

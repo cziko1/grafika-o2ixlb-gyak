@@ -1,10 +1,22 @@
 #include "scene.h"
 #include "app.h"
 
+#include <obj/load.h>
+#include <obj/draw.h>
+#include <SDL2/SDL.h>
+#include <math.h>
+
+
 void init_scene(Scene* scene)
 {
 	init_floor(&(scene->floor));
+	init_skyBox(&(scene->skyBox));
+	init_tunnel(&(scene->tunnel));
+	init_tunnel_end(&(scene->tunnel_end));
+    init_traintrack(&(scene->traintrack));
+    init_train(&(scene->train));
 
+	
     scene->material.ambient.red = 1.0;
     scene->material.ambient.green = 1.0;
     scene->material.ambient.blue = 1.0;
@@ -20,6 +32,7 @@ void init_scene(Scene* scene)
     scene->material.shininess = 0.0;
 	
 	scene->brightness = 0.0f;
+	scene->shelp = 0;
 	
 	scene->controlLight[0] = 1.0f;
     scene->controlLight[1] = 1.0f;
@@ -32,11 +45,10 @@ void set_lighting(Scene* scene)
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
 
-    float ambient_light[] = { scene->controlLight[0], scene->controlLight[1], scene->controlLight[0], 1.0 }; 
-    float diffuse_light[] = { scene->controlLight[0], scene->controlLight[1], scene->controlLight[0], 1.0f }; 
-    float specular_light[] = { scene->controlLight[0], scene->controlLight[1], scene->controlLight[0], 1.0f }; 
-    
-    float position[] = { 0.0f, 1.0f, 0.0f, 0.0f }; 
+    float ambient_light[] = { scene->controlLight[0], scene->controlLight[1], scene->controlLight[0], 1.0 }; // Fehér ambiens szín
+    float diffuse_light[] = { scene->controlLight[0], scene->controlLight[1], scene->controlLight[0], 1.0f }; // Fehér diffúz szín
+    float specular_light[] = { scene->controlLight[0], scene->controlLight[1], scene->controlLight[0], 1.0f }; // Fehér spekuláris szín
+    float position[] = { 0.0f, 1.0f, 0.0f, 0.0f }; // Fényforrás pozíciója
 
     glLightfv(GL_LIGHT0, GL_AMBIENT, ambient_light);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse_light);
@@ -84,10 +96,32 @@ void render_scene(const Scene* scene)
     set_material(&(scene->material));
     set_lighting(scene);
 	render_floor(&(scene->floor));
+	render_skyBox(&(scene->skyBox));
+	render_tunnel(&(scene->tunnel));
+	render_tunnel_end(&(scene->tunnel_end));
+    render_traintrack(&(scene->traintrack));
+    render_train(&(scene->train));
 	
     glEnd();
 }
 
 void setBrightness(Scene *scene, double brightness) {
     scene->brightness = brightness;
+}
+
+void help(Scene *scene)
+{
+    glColor3f(1, 1, 1);
+    glBindTexture(GL_TEXTURE_2D, load_texture("assets/textures/help.jpg"));
+
+    glBegin(GL_QUADS);
+    glTexCoord2f(0, 0);
+    glVertex3d(-2, 1.5, -3);
+    glTexCoord2f(1, 0);
+    glVertex3d(2, 1.5, -3);
+    glTexCoord2f(1, 1);
+    glVertex3d(2, -1.5, -3);
+    glTexCoord2f(0, 1);
+    glVertex3d(-2, -1.5, -3);
+    glEnd();
 }

@@ -5,6 +5,7 @@
 #include <math.h>
 #include <stdbool.h>
 
+#include "speed.h"
 #include "utils.h"
 
 /**

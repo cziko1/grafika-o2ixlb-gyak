@@ -1,5 +1,8 @@
 #include "texture.h"
 
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+
 GLuint load_texture(char* filename)
 {
     SDL_Surface* surface;
