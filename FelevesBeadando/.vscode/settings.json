@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "sdl.h": "c",
+        "camera.h": "c",
+        "scene.h": "c"
+    }
+}
