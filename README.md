@@ -1,6 +1,6 @@
 # 2023 Számítógépe grafika féléves beadandó
 
-A beandóban egy vonat állomást mutatok be, annak a belső terét. 
+A beandóban egy vonat állomást mutatok be, annak a belső terét, ahol van egy Mozdony, szobor, ablak, ajtó és egy mozgó lámpa. 
 
 >Mozgás: V G B N
 > 
