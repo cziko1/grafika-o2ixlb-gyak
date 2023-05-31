@@ -16,6 +16,11 @@
 #include "tunnel_end.h"
 #include "traintrack.h"
 #include "train.h"
+#include "door.h"
+#include "man.h"
+#include "cylinder.h"
+#include "lamp.h"
+
 
 typedef struct Scene
 {
@@ -27,6 +32,10 @@ typedef struct Scene
 	Tunnel_end tunnel_end;	
 	Traintrack traintrack;
 	Train train;
+	Door door;
+	Man man;
+	Cylinder cylinder;
+	Lamp lamp;
 
 	float controlLight[3];
 	float brightness;

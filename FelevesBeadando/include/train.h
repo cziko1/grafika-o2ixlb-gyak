@@ -16,4 +16,4 @@ typedef struct Train
 void init_train(Train* train);
 void render_train(Train* train);
 
-#endif
+#endif /* TRAIN_H */

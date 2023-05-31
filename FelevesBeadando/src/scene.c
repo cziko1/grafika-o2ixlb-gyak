@@ -15,8 +15,13 @@ void init_scene(Scene* scene)
 	init_tunnel_end(&(scene->tunnel_end));
     init_traintrack(&(scene->traintrack));
     init_train(&(scene->train));
+    init_door(&(scene->door));
+    init_man(&(scene->man));
+    init_cylinder(&(scene->cylinder));
+    init_lamp(&(scene->lamp));
 
-	
+
+
     scene->material.ambient.red = 1.0;
     scene->material.ambient.green = 1.0;
     scene->material.ambient.blue = 1.0;
@@ -101,7 +106,12 @@ void render_scene(const Scene* scene)
 	render_tunnel_end(&(scene->tunnel_end));
     render_traintrack(&(scene->traintrack));
     render_train(&(scene->train));
-	
+    render_door(&(scene->door));
+    render_man(&(scene->man));
+    render_cylinder(&(scene->cylinder));
+    render_lamp(&(scene->lamp));
+
+
     glEnd();
 }
 
