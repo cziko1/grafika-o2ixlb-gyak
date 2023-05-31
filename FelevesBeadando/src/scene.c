@@ -19,8 +19,8 @@ void init_scene(Scene* scene)
     init_man(&(scene->man));
     init_cylinder(&(scene->cylinder));
     init_lamp(&(scene->lamp));
-
-
+    init_window(&(scene->window));
+    init_view(&(scene->view));
 
     scene->material.ambient.red = 1.0;
     scene->material.ambient.green = 1.0;
@@ -110,7 +110,8 @@ void render_scene(const Scene* scene)
     render_man(&(scene->man));
     render_cylinder(&(scene->cylinder));
     render_lamp(&(scene->lamp));
-
+    render_window(&(scene->window));
+    render_view(&(scene->view)); 
 
     glEnd();
 }

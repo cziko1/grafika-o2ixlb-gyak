@@ -20,7 +20,8 @@
 #include "man.h"
 #include "cylinder.h"
 #include "lamp.h"
-
+#include "window.h"
+#include "view.h"
 
 typedef struct Scene
 {
@@ -36,6 +37,8 @@ typedef struct Scene
 	Man man;
 	Cylinder cylinder;
 	Lamp lamp;
+	Window window;
+	View view;
 
 	float controlLight[3];
 	float brightness;
